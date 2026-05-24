@@ -8,20 +8,17 @@
 <body>
 
 <header>
-<h1>SONDER</h1>
-<nav>
-<a href="shop.html">Back</a>
-<a href="cart.html">Cart</a>
-</nav>
+    <h1>SONDER</h1>
+    <a href="shop.html">Back</a>
 </header>
 
 <section class="product">
+    <img id="productImg">
+    <h2 id="name"></h2>
+    <p id="price"></p>
 
-<h2 id="name"></h2>
-<p id="price"></p>
-
-<button onclick="addToCart()">Add to Cart</button>
-
+    <button onclick="addToCart()">Add to Cart</button>
+    <button onclick="checkoutStripe()">Buy Now</button>
 </section>
 
 <script src="script.js"></script>
