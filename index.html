@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sonder</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <header>
+        <h1>SONDER</h1>
+        <nav>
+            <a href="#shop">Shop</a>
+            <a href="#cart">Cart</a>
+            <a href="#about">About</a>
+        </nav>
+        <div id="cart-count">0</div>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero">
+        <h2>Every story matters</h2>
+        <p>Streetwear inspired by individuality</p>
+        <a href="#shop"><button>Shop Now</button></a>
+    </section>
+
+    <!-- PRODUCTS -->
+    <section id="shop" class="products">
+
+        <div class="card">
+            <div class="image">Add Image</div>
+            <h3>Hoodie</h3>
+            <p>$80</p>
+            <button onclick="addToCart('Hoodie', 80)">Add to Cart</button>
+        </div>
+
+        <div class="card">
+            <div class="image">Add Image</div>
+            <h3>T-Shirt</h3>
+            <p>$45</p>
+            <button onclick="addToCart('T-Shirt', 45)">Add to Cart</button>
+        </div>
+
+        <div class="card">
+            <div class="image">Add Image</div>
+            <h3>Pants</h3>
+            <p>$95</p>
+            <button onclick="addToCart('Pants', 95)">Add to Cart</button>
+        </div>
+
+    </section>
+
+    <!-- CART -->
+    <section id="cart" class="cart">
+        <h2>Cart</h2>
+        <div id="cart-items"></div>
+        <h3 id="total">Total: $0</h3>
+        <button class="checkout">Checkout</button>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="about">
+        <h2>About</h2>
+        <p>
+            Sonder is a modern streetwear brand built around the idea that every 
+            person has their own story. Our clothing reflects individuality, growth, 
+            and expression.
+        </p>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>© 2026 Sonder</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
