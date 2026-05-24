@@ -1,80 +1,137 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sonder</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sonder</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
+body{background:#0a0a0a;color:#fff;scroll-behavior:smooth}
+
+header{display:flex;justify-content:space-between;align-items:center;padding:20px;border-bottom:1px solid #222;position:sticky;top:0;background:black;z-index:100}
+header h1{letter-spacing:4px}
+nav a{margin:0 15px;color:#fff;text-decoration:none}
+nav a:hover{color:#888}
+
+.hero{height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
+.hero h2{font-size:4rem;animation:fadeUp 1s}
+.hero button{margin-top:20px;padding:12px 25px;background:white;color:black;border:none;cursor:pointer}
+
+.products{display:flex;flex-wrap:wrap;justify-content:center;padding:50px;gap:30px}
+.card{width:250px;background:#111;padding:20px;border-radius:15px;transition:.3s;cursor:pointer}
+.card:hover{transform:translateY(-5px)}
+.image{height:200px;background:#222;margin-bottom:15px;display:flex;align-items:center;justify-content:center;color:#666}
+
+.product-page{position:fixed;top:0;left:0;width:100%;height:100%;background:#000;display:none;flex-direction:column;align-items:center;justify-content:center}
+.product-page.active{display:flex}
+
+.cart{position:fixed;right:0;top:0;width:300px;height:100%;background:#111;padding:20px;transform:translateX(100%);transition:.3s}
+.cart.active{transform:translateX(0)}
+
+.checkout{background:green;padding:10px;border:none;color:white;width:100%;margin-top:10px;cursor:pointer}
+
+footer{text-align:center;padding:20px;border-top:1px solid #222;color:#777}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+</style>
+
 </head>
 <body>
 
-    <!-- NAVBAR -->
-    <header>
-        <h1>SONDER</h1>
-        <nav>
-            <a href="#shop">Shop</a>
-            <a href="#cart">Cart</a>
-            <a href="#about">About</a>
-        </nav>
-        <div id="cart-count">0</div>
-    </header>
+<header>
+<h1>SONDER</h1>
+<nav>
+#shopShop</a>
+<a onclick="toggleCart()">Cart</a>
+</nav>
+</header>
 
-    <!-- HERO -->
-    <section class="hero">
-        <h2>Every story matters</h2>
-        <p>Streetwear inspired by individuality</p>
-        <a href="#shop"><button>Shop Now</button></a>
-    </section>
+<section class="hero">
+<h2>Every story matters</h2>
+<p>Modern streetwear</p>
+<a href="#shop"><button>Shop Now</button></a>
+</section>
 
-    <!-- PRODUCTS -->
-    <section id="shop" class="products">
+<section id="shop" class="products">
+<div class="card" onclick="openProduct('Hoodie',80)">
+<div class="image">Add Image</div>
+<h3>Hoodie</h3><p>$80</p>
+</div>
 
-        <div class="card">
-            <div class="image">Add Image</div>
-            <h3>Hoodie</h3>
-            <p>$80</p>
-            <button onclick="addToCart('Hoodie', 80)">Add to Cart</button>
-        </div>
+<div class="card" onclick="openProduct('T-Shirt',45)">
+<div class="image">Add Image</div>
+<h3>T-Shirt</h3><p>$45</p>
+</div>
 
-        <div class="card">
-            <div class="image">Add Image</div>
-            <h3>T-Shirt</h3>
-            <p>$45</p>
-            <button onclick="addToCart('T-Shirt', 45)">Add to Cart</button>
-        </div>
+<div class="card" onclick="openProduct('Pants',95)">
+<div class="image">Add Image</div>
+<h3>Pants</h3><p>$95</p>
+</div>
+</section>
 
-        <div class="card">
-            <div class="image">Add Image</div>
-            <h3>Pants</h3>
-            <p>$95</p>
-            <button onclick="addToCart('Pants', 95)">Add to Cart</button>
-        </div>
+<div id="productPage" class="product-page">
+<h2 id="productName"></h2>
+<p id="productPrice"></p>
+<button onclick="addToCartActive()">Add to Cart</button>
+<button onclick="closeProduct()">Close</button>
+</div>
 
-    </section>
+<div id="cart" class="cart">
+<h2>Cart</h2>
+<div id="cartItems"></div>
+<h3 id="total">Total: $0</h3>
+<button class="checkout" onclick="checkout()">Checkout</button>
+</div>
 
-    <!-- CART -->
-    <section id="cart" class="cart">
-        <h2>Cart</h2>
-        <div id="cart-items"></div>
-        <h3 id="total">Total: $0</h3>
-        <button class="checkout">Checkout</button>
-    </section>
+<footer>© 2026 Sonder</footer>
 
-    <!-- ABOUT -->
-    <section id="about" class="about">
-        <h2>About</h2>
-        <p>
-            Sonder is a modern streetwear brand built around the idea that every 
-            person has their own story. Our clothing reflects individuality, growth, 
-            and expression.
-        </p>
-    </section>
+<script>
+let cart=[];
+let currentProduct={};
 
-    <!-- FOOTER -->
-    <footer>
-        <p>© 2026 Sonder</p>
-    </footer>
+function openProduct(name,price){
+currentProduct={name,price};
+document.getElementById('productName').innerText=name;
+document.getElementById('productPrice').innerText='$'+price;
+document.getElementById('productPage').classList.add('active');
+}
 
-    <script src="script.js"></script>
+function closeProduct(){
+document.getElementById('productPage').classList.remove('active');
+}
+
+function addToCartActive(){
+cart.push(currentProduct);
+updateCart();
+closeProduct();
+}
+
+function toggleCart(){
+document.getElementById('cart').classList.toggle('active');
+}
+
+function updateCart(){
+let list=document.getElementById('cartItems');
+list.innerHTML='';
+let total=0;
+cart.forEach((item,i)=>{
+total+=item.price;
+list.innerHTML+=`<p>${item.name} - $${item.price} <button onclick="removeItem(${i})">x</button></p>`;
+});
+document.getElementById('total').innerText='Total: $'+total;
+}
+
+function removeItem(i){
+cart.splice(i,1);
+updateCart();
+}
+
+function checkout(){
+alert('Checkout system coming soon (Stripe/PayPal)');
+}
+</script>
+
 </body>
 </html>
