@@ -18,23 +18,21 @@ header {
     padding: 20px;
     background: black;
     border-bottom: 1px solid #222;
-}
-
-header h1 {
-    letter-spacing: 3px;
+    position: sticky;
+    top: 0;
 }
 
 nav a {
-    margin: 0 15px;
-    text-decoration: none;
+    margin: 0 10px;
     color: white;
+    text-decoration: none;
 }
 
 nav a:hover {
     color: gray;
 }
 
-#cart-count {
+#cartCount {
     background: white;
     color: black;
     padding: 5px 10px;
@@ -43,18 +41,20 @@ nav a:hover {
 
 /* HERO */
 .hero {
-    text-align: center;
-    padding: 100px 20px;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 .hero h2 {
-    font-size: 3rem;
-    animation: fadeUp 1s ease;
+    font-size: 4rem;
 }
 
 .hero button {
     margin-top: 20px;
-    padding: 10px 20px;
+    padding: 12px 24px;
     background: white;
     color: black;
     border: none;
@@ -64,72 +64,75 @@ nav a:hover {
 /* PRODUCTS */
 .products {
     display: flex;
-    justify-content: center;
-    gap: 20px;
-    padding: 50px;
     flex-wrap: wrap;
+    justify-content: center;
+    padding: 50px;
+    gap: 20px;
 }
 
 .card {
+    width: 250px;
     background: #111;
-    padding: 20px;
+    padding: 15px;
     border-radius: 10px;
-    width: 200px;
-    text-align: center;
+    cursor: pointer;
     transition: 0.3s;
 }
 
-.card:hover {
-    transform: scale(1.05);
+.card img {
+    width: 100%;
+    border-radius: 10px;
 }
 
-.image {
-    height: 150px;
-    background: #222;
-    margin-bottom: 15px;
-    display: flex;
-    align-items: center;
+.card:hover {
+    transform: translateY(-5px);
+}
+
+/* PRODUCT PAGE */
+.productPage {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: black;
+    display: none;
+    flex-direction: column;
     justify-content: center;
-    color: gray;
+    align-items: center;
+}
+
+.productPage.active {
+    display: flex;
 }
 
 /* CART */
 .cart {
-    padding: 50px;
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 300px;
+    height: 100%;
+    background: #111;
+    padding: 20px;
+    transform: translateX(100%);
+    transition: 0.3s;
 }
 
-.checkout {
-    margin-top: 15px;
-    padding: 10px 20px;
-    background: green;
-    border: none;
-    color: white;
-    cursor: pointer;
+.cart.active {
+    transform: translateX(0);
 }
 
 /* ABOUT */
 .about {
-    padding: 50px;
     text-align: center;
+    padding: 50px;
 }
 
 /* FOOTER */
 footer {
     text-align: center;
     padding: 20px;
+    color: #777;
     border-top: 1px solid #222;
-    color: gray;
 }
-
-/* ANIMATION */
-@keyframes fadeUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-``
