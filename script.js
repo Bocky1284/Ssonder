@@ -1,50 +1,52 @@
-let cart = [];
-let current = {};
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-function openProduct(name, price) {
-    current = { name, price };
-    document.getElementById("productName").innerText = name;
-    document.getElementById("productPrice").innerText = "$" + price;
-    document.getElementById("productPage").classList.add("active");
+function saveCart() {
+    localStorage.setItem("cart", JSON.stringify(cart));
 }
 
-function closeProduct() {
-    document.getElementById("productPage").classList.remove("active");
+function loadProduct() {
+    const params = new URLSearchParams(window.location.search);
+    document.getElementById("name").innerText = params.get("name");
+    document.getElementById("price").innerText = "$" + params.get("price");
 }
 
 function addToCart() {
-    cart.push(current);
-    updateCart();
-    closeProduct();
+    const name = document.getElementById("name").innerText;
+    const price = parseFloat(document.getElementById("price").innerText.replace("$", ""));
+    
+    cart.push({ name, price });
+    saveCart();
+    alert("Added to cart");
 }
 
-function toggleCart() {
-    document.getElementById("cart").classList.toggle("active");
-}
-
-function updateCart() {
+function loadCart() {
     let list = document.getElementById("cartItems");
-    list.innerHTML = "";
+    if (!list) return;
 
     let total = 0;
+    list.innerHTML = "";
 
     cart.forEach((item, i) => {
         total += item.price;
         list.innerHTML += `
-            <p>${item.name} - $${item.price} 
-            <button onclick="removeItem(${i})">x</button></p>
+            <p>${item.name} - $${item.price}
+            <button onclick="removeItem(${i})">X</button></p>
         `;
     });
 
     document.getElementById("total").innerText = "Total: $" + total;
-    document.getElementById("cartCount").innerText = cart.length;
 }
 
 function removeItem(i) {
     cart.splice(i, 1);
-    updateCart();
+    saveCart();
+    loadCart();
 }
 
 function checkout() {
-    alert("Next step: connect Stripe or PayPal");
+    alert("Connect Stripe / PayPal next");
 }
+
+if (window.location.pathname.includes("product.html")) loadProduct();
+if (window.location.pathname.includes("cart.html")) loadCart();
+``
