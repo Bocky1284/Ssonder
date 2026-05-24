@@ -1,35 +1,50 @@
 let cart = [];
+let current = {};
 
-function addToCart(name, price) {
-    cart.push({ name, price });
-    updateCart();
+function openProduct(name, price) {
+    current = { name, price };
+    document.getElementById("productName").innerText = name;
+    document.getElementById("productPrice").innerText = "$" + price;
+    document.getElementById("productPage").classList.add("active");
 }
 
-function removeItem(index) {
-    cart.splice(index, 1);
+function closeProduct() {
+    document.getElementById("productPage").classList.remove("active");
+}
+
+function addToCart() {
+    cart.push(current);
     updateCart();
+    closeProduct();
+}
+
+function toggleCart() {
+    document.getElementById("cart").classList.toggle("active");
 }
 
 function updateCart() {
-    const cartItems = document.getElementById("cart-items");
-    const totalText = document.getElementById("total");
-    const cartCount = document.getElementById("cart-count");
-
-    cartItems.innerHTML = "";
+    let list = document.getElementById("cartItems");
+    list.innerHTML = "";
 
     let total = 0;
 
-    cart.forEach((item, index) => {
+    cart.forEach((item, i) => {
         total += item.price;
-
-        cartItems.innerHTML += `
-            <div>
-                ${item.name} - $${item.price}
-                <button onclick="removeItem(${index})">X</button>
-            </div>
+        list.innerHTML += `
+            <p>${item.name} - $${item.price} 
+            <button onclick="removeItem(${i})">x</button></p>
         `;
     });
 
-    totalText.innerText = "Total: $" + total;
-    cartCount.innerText = cart.length;
+    document.getElementById("total").innerText = "Total: $" + total;
+    document.getElementById("cartCount").innerText = cart.length;
+}
+
+function removeItem(i) {
+    cart.splice(i, 1);
+    updateCart();
+}
+
+function checkout() {
+    alert("Next step: connect Stripe or PayPal");
 }
